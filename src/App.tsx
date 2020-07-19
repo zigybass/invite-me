@@ -6,10 +6,18 @@ import Nav from "./components/NavBar/Nav";
 function App() {
   return (
     <div className="App">
-      <Nav />
+      <header style={styles.nav}>
+        <Nav />
+      </header>
       <MainRoutes />
     </div>
   );
 }
+
+const styles = {
+  nav: {
+    width: "100%",
+  },
+};
 
 export default App;
