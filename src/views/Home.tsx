@@ -7,7 +7,7 @@ function Home() {
       <Container>
         <Grid container>
           <Grid item>
-            <Typography>Invite Me</Typography>
+            <Typography variant="subtitle1"></Typography>
           </Grid>
         </Grid>
       </Container>
