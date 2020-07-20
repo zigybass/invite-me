@@ -7,7 +7,7 @@ import { Home } from "./views/Home";
 import { Typography } from "@material-ui/core";
 
 function App() {
-  const [events, setEvents] = useState<string>("Ultimate Frisbee");
+  const [events, setEvents] = useState<string | null>("Ultimate Frisbee");
 
   const addEvent = (event: string): void => {
     setEvents(event);
