@@ -7,7 +7,7 @@ import { Home } from "./views/Home";
 import { Typography } from "@material-ui/core";
 
 function App() {
-  const [events, setEvents] = useState<string | null>("");
+  const [events, setEvents] = useState<string>("Ultimate Frisbee");
 
   const addEvent = (event: string): void => {
     setEvents(event);
@@ -21,7 +21,7 @@ function App() {
             <Typography variant="h5">Invite Me</Typography>
           </div>
           <Nav />
-          <Home />
+          <Home list={events} />
         </header>
       </ThemeProvider>
     </div>

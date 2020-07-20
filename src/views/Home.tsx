@@ -6,7 +6,7 @@ interface Props {
   list?: string;
 }
 
-export const Home: React.FC<Props> = () => {
+export const Home: React.FC<Props> = ({ list }) => {
   return (
     <>
       <Container>
@@ -16,9 +16,17 @@ export const Home: React.FC<Props> = () => {
           </Grid>
         </Grid>
         <Grid container>
-          <Grid item md={12}></Grid>
+          <Grid style={styles.events} item md={12}>
+            {list}
+          </Grid>
         </Grid>
       </Container>
     </>
   );
+};
+
+const styles = {
+  events: {
+    padding: "2rem",
+  },
 };
