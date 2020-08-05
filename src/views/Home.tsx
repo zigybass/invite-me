@@ -3,7 +3,7 @@ import React from "react";
 import { Grid, Container, Typography } from "@material-ui/core";
 
 interface Props {
-  list?: string | null;
+  list?: Array<string> | null;
 }
 
 export const Home: React.FC<Props> = ({ list }) => {
@@ -11,11 +11,11 @@ export const Home: React.FC<Props> = ({ list }) => {
     <>
       <Container>
         <Grid container justify="center">
-          <Grid item>
+          <Grid item style={styles.header}>
             <Typography variant="body1">List of events</Typography>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid container style={styles.header}>
           <Grid style={styles.events} item md={12}>
             {list}
           </Grid>
@@ -26,6 +26,9 @@ export const Home: React.FC<Props> = ({ list }) => {
 };
 
 const styles = {
+  header: {
+    padding: "1rem",
+  },
   events: {
     padding: "2rem",
   },
