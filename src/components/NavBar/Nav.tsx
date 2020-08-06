@@ -26,7 +26,7 @@ export default function Nav() {
   return (
     <div className={classes.root}>
       <Toolbar>
-        <Button>+ Event</Button>
+        <Button onClick={handleAdd}>+ Event</Button>
       </Toolbar>
     </div>
   );

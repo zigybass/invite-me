@@ -4,23 +4,35 @@ import { ThemeProvider } from "@material-ui/styles";
 import theme from "./Assets/MuiTheme/MuiTheme";
 import Nav from "./components/NavBar/Nav";
 import { Home } from "./views/Home";
-import { Typography } from "@material-ui/core";
+import { Typography, Grid } from "@material-ui/core";
 
 function App() {
-  const [events, setEvents] = useState<string | null>("Ultimate Frisbee");
+  const [events, setEvents] = useState<Array<string> | null>([
+    "Ultimate Frisbee",
+    "Soccer",
+    "Baseball",
+  ]);
 
   const addEvent = (event: string): void => {
-    setEvents(event);
+    console.log(event);
   };
 
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
         <header style={styles.nav}>
-          <div style={styles.title}>
-            <Typography variant="h5">Invite Me</Typography>
-          </div>
-          <Nav />
+          <Grid container justify="center" style={styles.title}>
+            <Grid item>
+              <div>
+                <Typography variant="h5">Invite Me</Typography>
+              </div>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item md={12}>
+              <Nav />
+            </Grid>
+          </Grid>
           <Home list={events} />
         </header>
       </ThemeProvider>
@@ -30,7 +42,7 @@ function App() {
 
 const styles = {
   title: {
-    padding: ".5rem 3rem",
+    padding: "1.5rem 0rem",
   },
   nav: {
     margin: "3rem auto",
