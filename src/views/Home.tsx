@@ -1,6 +1,12 @@
 import React from "react";
-// import EventList from "../components/EventList/EventList";
-import { Grid, Container, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Container,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+} from "@material-ui/core";
 
 interface Props {
   list?: Array<string> | null | undefined;
@@ -8,7 +14,13 @@ interface Props {
 
 export const Home: React.FC<Props> = ({ list }) => {
   const mapEvents = (arr: Array<string> | null | undefined): any => {
-    return <div>{list}</div>;
+    return arr?.map((item: string, i: number) => {
+      return (
+        <ListItem key={i}>
+          <ListItemText>{item}</ListItemText>
+        </ListItem>
+      );
+    });
   };
 
   return (
@@ -19,9 +31,9 @@ export const Home: React.FC<Props> = ({ list }) => {
             <Typography variant="body1">List of events</Typography>
           </Grid>
         </Grid>
-        <Grid container style={styles.header}>
+        <Grid container>
           <Grid style={styles.events} item md={12}>
-            {mapEvents(list)}
+            <List>{mapEvents(list)}</List>
           </Grid>
         </Grid>
       </Container>
@@ -31,9 +43,9 @@ export const Home: React.FC<Props> = ({ list }) => {
 
 const styles = {
   header: {
-    padding: "1rem",
+    paddingTop: "4rem",
   },
   events: {
-    padding: "2rem",
+    padding: ".5rem",
   },
 };
