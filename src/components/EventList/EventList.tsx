@@ -1,7 +1,14 @@
 import React from "react";
+import { Grid, Container, Typography, List, ListItem } from "@material-ui/core";
 
 function EventList() {
-  return <div></div>;
+  return (
+    <>
+      <List>
+        <ListItem></ListItem>
+      </List>
+    </>
+  );
 }
 
 export default EventList;

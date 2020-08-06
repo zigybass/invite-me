@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <header style={styles.nav}>
+        <div style={styles.nav}>
           <Grid container justify="center" style={styles.title}>
             <Grid item>
               <div>
@@ -30,11 +30,11 @@ function App() {
           </Grid>
           <Grid container>
             <Grid item md={12}>
-              <Nav />
+              <Nav addEvent={addEvent} />
             </Grid>
           </Grid>
           <Home list={events} />
-        </header>
+        </div>
       </ThemeProvider>
     </div>
   );

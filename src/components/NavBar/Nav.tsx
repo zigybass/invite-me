@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Nav() {
+export default function Nav({ addEvent }) {
   const classes = useStyles();
 
   const handleAdd = (): void => {};
