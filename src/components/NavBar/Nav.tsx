@@ -18,10 +18,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Nav({ addEvent }) {
+interface Props {
+  addEvent: (event: string) => void;
+}
+
+interface ISomeModel {
+  foo: string;
+  bar: string;
+}
+
+interface ISomeOtherModel {
+  foo: string;
+  bar: string;
+  baz: string;
+}
+
+// foo, bar, baz, someOtherMetadata
+
+const someFunc = function <T>(model: T) {};
+
+const aModel: ISomeModel = {
+  foo: "foo",
+  bar: "bar",
+};
+
+const fetchedModel = someFunc<ISomeOtherModel>(
+  (aModel as unknown) as ISomeOtherModel
+);
+
+export default function Nav({ addEvent }: Props) {
   const classes = useStyles();
 
-  const handleAdd = (): void => {};
+  const handleAdd = (): void => {
+    addEvent("Hockey");
+  };
 
   return (
     <div className={classes.root}>

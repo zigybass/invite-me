@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 
 interface Props {
-  list?: Array<string> | null | undefined;
+  list: Array<string>;
 }
 
 export const Home: React.FC<Props> = ({ list }) => {
-  const mapEvents = (arr: Array<string> | null | undefined): any => {
+  const mapEvents = (arr: Array<string>): any => {
     return arr?.map((item: string, i: number) => {
       return (
         <ListItem key={i}>
@@ -24,20 +24,18 @@ export const Home: React.FC<Props> = ({ list }) => {
   };
 
   return (
-    <>
-      <Container>
-        <Grid container justify="center">
-          <Grid item style={styles.header}>
-            <Typography variant="body1">List of events</Typography>
-          </Grid>
+    <Container>
+      <Grid container justify="center">
+        <Grid item style={styles.header}>
+          <Typography variant="body1">List of events</Typography>
         </Grid>
-        <Grid container>
-          <Grid style={styles.events} item md={12}>
-            <List>{mapEvents(list)}</List>
-          </Grid>
+      </Grid>
+      <Grid container>
+        <Grid style={styles.events} item md={12}>
+          <List>{mapEvents(list)}</List>
         </Grid>
-      </Container>
-    </>
+      </Grid>
+    </Container>
   );
 };
 
