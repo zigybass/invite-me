@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Toolbar, Button } from "@material-ui/core";
+import { Toolbar, Button, Modal } from "@material-ui/core";
+import { PromptModal } from "../Modals/PromptModal/PromptModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,16 +49,29 @@ const fetchedModel = someFunc<ISomeOtherModel>(
 
 export default function Nav({ addEvent }: Props) {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
 
-  const handleAdd = (): void => {
-    addEvent("Hockey");
+  const openModal = (): void => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleAdd = (event: string) => {
+    addEvent(event);
+    setOpen(false);
   };
 
   return (
-    <div className={classes.root}>
-      <Toolbar>
-        <Button onClick={handleAdd}>+ Event</Button>
-      </Toolbar>
-    </div>
+    <>
+      <div className={classes.root}>
+        <Toolbar>
+          <Button onClick={openModal}>+ Event</Button>
+        </Toolbar>
+      </div>
+      <PromptModal open={open} add={handleAdd} handleClose={handleClose} />
+    </>
   );
 }
