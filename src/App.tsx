@@ -7,14 +7,17 @@ import { Home } from "./views/Home";
 import { Typography, Grid } from "@material-ui/core";
 
 function App() {
-  const [events, setEvents] = useState<Array<string> | null>([
+  const [events, setEvents] = useState<Array<string>>([
     "Ultimate Frisbee",
     "Soccer",
     "Baseball",
   ]);
 
-  const addEvent = (event: string): void => {
-    console.log(event);
+  const addEvent = (event: any): void => {
+    const newEvents = events;
+    newEvents?.push(event);
+    setEvents([...newEvents]);
+    console.log(events);
   };
 
   return (
