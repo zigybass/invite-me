@@ -6,8 +6,8 @@ import {
   List,
   ListItem,
   Divider,
-  Button,
 } from "@material-ui/core";
+import { EventButton } from "../components/EventButton/EventButton";
 
 interface Props {
   list: Array<string>;
@@ -17,12 +17,12 @@ export const Home: React.FC<Props> = ({ list }) => {
   const mapEvents = (arr: Array<string>): any => {
     return arr?.map((item: string, i: number) => {
       return (
-        <>
-          <ListItem key={i}>
-            <Typography variant="body1">{item}</Typography>
+        <div key={i} style={{ padding: ".6rem" }}>
+          <ListItem>
+            <EventButton title={item} />
           </ListItem>
           <Divider />
-        </>
+        </div>
       );
     });
   };

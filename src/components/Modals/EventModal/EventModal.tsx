@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { Modal, TextField, IconButton, Grid, Button } from "@material-ui/core";
+import { Modal, IconButton, Grid, Button } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
+import { EventForm } from "../../EventForm/EventForm";
 
-interface PromptModal {
+interface EventModalProps {
   open: boolean;
   handleClose: () => void;
-  add: (event: string) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: "absolute",
-      width: 450,
+      width: "72%",
+      height: "72%",
       outline: "none",
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
@@ -34,19 +35,12 @@ function getModalStyle() {
   };
 }
 
-export const PromptModal: React.FC<PromptModal> = ({
+export const EventModal: React.FC<EventModalProps> = ({
   open,
   handleClose,
-  add,
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-  const [text, setText] = useState("");
-
-  const handleAdd = () => {
-    add(text);
-    setText("");
-  };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -54,37 +48,13 @@ export const PromptModal: React.FC<PromptModal> = ({
         <IconButton
           onClick={() => {
             handleClose();
-            setText("");
           }}
         >
           <ClearIcon />
         </IconButton>
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
-        <h2 id="simple-modal-title">Please enter an event name:</h2>
-        <TextField
-          inputProps={{ min: 0, style: { textAlign: "center" } }}
-          value={text}
-          fullWidth
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-        />
-      </Grid>
-      <Grid container style={styles.buttons} justify="center" spacing={10}>
-        <Grid item>
-          <Button onClick={handleAdd}>Add</Button>
-        </Grid>
-        <Grid item>
-          <Button
-            onClick={() => {
-              handleClose();
-              setText("");
-            }}
-          >
-            Cancel
-          </Button>
-        </Grid>
+        <EventForm />
       </Grid>
     </div>
   );
@@ -101,10 +71,4 @@ export const PromptModal: React.FC<PromptModal> = ({
       </Modal>
     </>
   );
-};
-
-const styles = {
-  buttons: {
-    paddingTop: "1.75rem",
-  },
 };
