@@ -45,6 +45,7 @@ export const PromptModal: React.FC<PromptModal> = ({
 
   const handleAdd = () => {
     add(text);
+    setText("");
   };
 
   const body = (

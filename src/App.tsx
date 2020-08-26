@@ -10,14 +10,12 @@ function App() {
   const [events, setEvents] = useState<Array<string>>([
     "Ultimate Frisbee",
     "Soccer",
-    "Baseball",
   ]);
 
   const addEvent = (event: any): void => {
     const newEvents = events;
     newEvents?.push(event);
     setEvents([...newEvents]);
-    console.log(events);
   };
 
   return (
