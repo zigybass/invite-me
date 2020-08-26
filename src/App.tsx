@@ -17,7 +17,6 @@ function App() {
     const newEvents = events;
     newEvents?.push(event);
     setEvents([...newEvents]);
-    console.log(events);
   };
 
   return (
