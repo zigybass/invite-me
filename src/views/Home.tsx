@@ -5,7 +5,8 @@ import {
   Typography,
   List,
   ListItem,
-  ListItemText,
+  Divider,
+  Button,
 } from "@material-ui/core";
 
 interface Props {
@@ -16,9 +17,12 @@ export const Home: React.FC<Props> = ({ list }) => {
   const mapEvents = (arr: Array<string>): any => {
     return arr?.map((item: string, i: number) => {
       return (
-        <ListItem key={i}>
-          <ListItemText>{item}</ListItemText>
-        </ListItem>
+        <>
+          <ListItem key={i}>
+            <Typography variant="body1">{item}</Typography>
+          </ListItem>
+          <Divider />
+        </>
       );
     });
   };
@@ -27,11 +31,11 @@ export const Home: React.FC<Props> = ({ list }) => {
     <Container>
       <Grid container justify="center">
         <Grid item style={styles.header}>
-          <Typography variant="body1">List of events</Typography>
+          <Typography variant="subtitle1">List of events</Typography>
         </Grid>
       </Grid>
-      <Grid container>
-        <Grid style={styles.events} item md={12}>
+      <Grid container justify="center">
+        <Grid item style={styles.events}>
           <List>{mapEvents(list)}</List>
         </Grid>
       </Grid>
@@ -44,6 +48,6 @@ const styles = {
     paddingTop: "4rem",
   },
   events: {
-    padding: ".5rem",
+    paddingTop: "1.5rem",
   },
 };

@@ -4,18 +4,31 @@ import { createMuiTheme } from "@material-ui/core/styles";
 const theme = createMuiTheme({
   typography: {
     h5: {
-      fontFamily: "Baloo Da 2, cursive",
-      letterSpacing: ".13rem",
+      fontFamily: "'Nunito', sans-serif",
+      letterSpacing: ".18rem",
+      fontWeight: 800,
+      fontSize: "2rem",
+      color: "rgb(0, 0, 0, .87)",
     },
     subtitle1: {
-      fontFamily: "Baloo Da 2, cursive",
-      color: "0, 0, 0, .2",
+      fontFamily: "'Nunito', sans-serif",
+      color: "rgb(0, 0, 0, .87)",
+      fontSize: "1.6rem",
+      fontWeight: 600,
+      letterSpacing: ".1rem",
+    },
+    body1: {
+      letterSpacing: ".05rem",
+      fontSize: "1.25rem",
+      fontWeight: 400,
+      color: "rgb(0, 0, 0, .87)",
     },
   },
   overrides: {
     MuiButton: {
-      root: {
-        fontFamily: "Baloo Da 2, cursive",
+      text: {
+        fontFamily: "'Nunito', sans-serif",
+        color: "rgb(0, 0, 0, .87)",
       },
     },
   },
