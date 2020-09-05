@@ -34,7 +34,7 @@ function App() {
               <Nav addEvent={addEvent} />
             </Grid>
           </Grid>
-          <Home list={events} />
+          <Home />
         </div>
       </ThemeProvider>
     </div>
