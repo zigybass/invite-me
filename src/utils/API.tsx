@@ -10,8 +10,15 @@ const _get = (url: string): Promise<AxiosResponse<any>> => {
   return axios.get(url);
 };
 
-const _post = (url: string, data: newEvent): any => {
-  return axios.post(url, data);
+const _post = (url: string, data: newEvent): Promise<AxiosResponse<any>> => {
+  return axios({
+    method: "POST",
+    url: url,
+    data: data,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 };
 
 export const getEvents = (): Promise<AxiosResponse<any>> => {
