@@ -7,11 +7,9 @@ import {
   ListItem,
   Divider,
 } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 import { EventButton } from "../components/EventButton/EventButton";
 import { getEvents } from "../utils/API";
-
-// TO DO
-// Refactor events list on App and update API to addEvents
 
 export const Home: React.FC = () => {
   const [events, setEvents] = useState([]);
@@ -40,11 +38,15 @@ export const Home: React.FC = () => {
 
   if (loading) {
     return (
-      <Grid container>
-        <Grid item>
-          <Typography variant="subtitle1">Loading Page...</Typography>
+      <Container>
+        <Grid container justify="center" style={styles.header}>
+          <Grid item md={3}>
+            <Skeleton animation="wave" variant="text" />
+            <Skeleton animation="wave" variant="text" />
+            <Skeleton animation="wave" variant="text" />
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     );
   }
 
