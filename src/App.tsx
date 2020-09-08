@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./Assets/MuiTheme/MuiTheme";
 import Nav from "./components/NavBar/Nav";
 import { Home } from "./views/Home";
 import { Typography, Grid } from "@material-ui/core";
+import { addEventToAPI } from "./utils/API";
 
 function App() {
-  const [events, setEvents] = useState<Array<string>>([
-    "Ultimate Frisbee",
-    "Soccer",
-  ]);
-
   const addEvent = (event: any): void => {
-    const newEvents = events;
-    newEvents?.push(event);
-    setEvents([...newEvents]);
+    const eventData = {
+      name: event,
+      onGoing: false,
+    };
+    addEventToAPI(eventData)
+      .then((res): void => {
+        console.log(res);
+      })
+      .catch((err): void => {
+        console.log(err);
+      });
   };
 
   return (
