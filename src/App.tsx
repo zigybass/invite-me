@@ -1,26 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { ThemeProvider } from "@material-ui/styles";
 import theme from "./Assets/MuiTheme/MuiTheme";
 import Nav from "./components/NavBar/Nav";
 import { Home } from "./views/Home";
 import { Typography, Grid } from "@material-ui/core";
-import { addEventToAPI } from "./utils/API";
+import { EventsContext } from "./EventContext/EventsContext";
 
 function App() {
-  const addEvent = (event: any): void => {
-    const eventData = {
-      name: event,
-      onGoing: false,
-    };
-    addEventToAPI(eventData)
-      .then((res): void => {
-        console.log(res);
-      })
-      .catch((err): void => {
-        console.log(err);
-      });
-  };
+  const [events, setEvents] = useState<Array<any>>([]);
 
   return (
     <div className="App">
@@ -33,12 +21,16 @@ function App() {
               </div>
             </Grid>
           </Grid>
-          <Grid container>
-            <Grid item md={12}>
-              <Nav addEvent={addEvent} />
+          <EventsContext.Provider
+            value={{ events: events, setEvents: setEvents }}
+          >
+            <Grid container>
+              <Grid item md={12}>
+                <Nav />
+              </Grid>
             </Grid>
-          </Grid>
-          <Home />
+            <Home />
+          </EventsContext.Provider>
         </div>
       </ThemeProvider>
     </div>

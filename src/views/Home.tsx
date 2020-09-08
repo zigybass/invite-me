@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Grid,
   Container,
@@ -10,9 +10,10 @@ import {
 import { Skeleton } from "@material-ui/lab";
 import { EventButton } from "../components/EventButton/EventButton";
 import { getEvents } from "../utils/API";
+import { EventsContext } from "../EventContext/EventsContext";
 
 export const Home: React.FC = () => {
-  const [events, setEvents] = useState([]);
+  const { events, setEvents } = useContext(EventsContext);
   const [loading, setLoading] = useState<Boolean>(true);
 
   useEffect(() => {
