@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Toolbar, Button, Modal } from "@material-ui/core";
+import { Toolbar, Button } from "@material-ui/core";
 import { PromptModal } from "../Modals/PromptModal/PromptModal";
+import { EventsContext } from "../../EventContext/EventsContext";
+import { addEventToAPI } from "../../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,35 +21,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props {
-  addEvent: (event: string) => void;
-}
-
-interface ISomeModel {
-  foo: string;
-  bar: string;
-}
-
-interface ISomeOtherModel {
-  foo: string;
-  bar: string;
-  baz: string;
-}
-
-// foo, bar, baz, someOtherMetadata
-
-const someFunc = function <T>(model: T) {};
-
-const aModel: ISomeModel = {
-  foo: "foo",
-  bar: "bar",
-};
-
-const fetchedModel = someFunc<ISomeOtherModel>(
-  (aModel as unknown) as ISomeOtherModel
-);
-
-export default function Nav({ addEvent }: Props) {
+export default function Nav() {
+  const { events, setEvents } = useContext(EventsContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -55,12 +30,23 @@ export default function Nav({ addEvent }: Props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     setOpen(false);
   };
 
-  const handleAdd = (event: string) => {
-    addEvent(event);
+  const handleAdd = (event: string): void => {
+    const eventData = {
+      name: event,
+      onGoing: false,
+    };
+    addEventToAPI(eventData)
+      .then((res): void => {
+        const { data } = res;
+        setEvents([...events, data]);
+      })
+      .catch((err): void => {
+        console.log(err);
+      });
     setOpen(false);
   };
 
