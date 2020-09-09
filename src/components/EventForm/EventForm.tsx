@@ -1,12 +1,16 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
-interface EventFormProps {}
+interface EventFormProps {
+  name: string;
+}
 
-export const EventForm: React.FC<EventFormProps> = ({}) => {
+export const EventForm: React.FC<EventFormProps> = ({ name }) => {
   return (
     <Grid container justify="center">
-      <Grid item>FORM TEST</Grid>
+      <Grid item>
+        <Typography variant="subtitle1">{name}</Typography>
+      </Grid>
     </Grid>
   );
 };
