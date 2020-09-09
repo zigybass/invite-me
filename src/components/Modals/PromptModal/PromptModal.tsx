@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: "absolute",
-      width: 450,
+      width: 550,
       outline: "none",
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
@@ -30,7 +30,6 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-    padding: "4rem",
   };
 }
 
@@ -61,7 +60,9 @@ export const PromptModal: React.FC<PromptModal> = ({
         </IconButton>
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
-        <h2 id="simple-modal-title">Please enter an event name:</h2>
+        <h2 style={styles.header} id="simple-modal-title">
+          Please enter an event name:
+        </h2>
         <TextField
           inputProps={{ min: 0, style: { textAlign: "center" } }}
           value={text}
@@ -73,7 +74,13 @@ export const PromptModal: React.FC<PromptModal> = ({
       </Grid>
       <Grid container style={styles.buttons} justify="center" spacing={10}>
         <Grid item>
-          <Button onClick={handleAdd}>Add</Button>
+          <Button
+            disabled={Boolean(!text)}
+            variant="contained"
+            onClick={handleAdd}
+          >
+            Add
+          </Button>
         </Grid>
         <Grid item>
           <Button
@@ -106,5 +113,8 @@ export const PromptModal: React.FC<PromptModal> = ({
 const styles = {
   buttons: {
     paddingTop: "1.75rem",
+  },
+  header: {
+    paddingBottom: "2.25rem",
   },
 };

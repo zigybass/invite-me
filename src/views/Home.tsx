@@ -29,7 +29,11 @@ export const Home: React.FC = () => {
       return (
         <div key={i} style={{ padding: ".6rem" }}>
           <ListItem>
-            <EventButton title={item.name} live={item.onGoing} />
+            <EventButton
+              title={item.name}
+              eventId={item.id}
+              live={item.onGoing}
+            />
           </ListItem>
           <Divider />
         </div>

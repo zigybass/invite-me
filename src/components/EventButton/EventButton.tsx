@@ -4,10 +4,15 @@ import { EventModal } from "../Modals/EventModal/EventModal";
 
 interface EventButtonProps {
   title: string;
+  eventId: string;
   live: boolean;
 }
 
-export const EventButton: React.FC<EventButtonProps> = ({ title, live }) => {
+export const EventButton: React.FC<EventButtonProps> = ({
+  title,
+  eventId,
+  live,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,6 +30,7 @@ export const EventButton: React.FC<EventButtonProps> = ({ title, live }) => {
         handleClose={() => {
           setOpen(false);
         }}
+        id={eventId}
       />
     </>
   );
@@ -35,5 +41,6 @@ const styles = {
     color: "red",
     fontWeight: 700,
     paddingBottom: ".3rem",
+    paddingLeft: ".3rem",
   },
 };
