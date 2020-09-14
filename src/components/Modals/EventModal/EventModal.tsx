@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Modal, IconButton, Grid } from "@material-ui/core";
+import { Modal, IconButton, Grid, Container } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 import { EventForm } from "../../EventForm/EventForm";
+import { getEventById } from "../../../utils/API";
+import { Skeleton } from "@material-ui/lab";
 
 /*
 
@@ -14,6 +16,12 @@ interface EventModalProps {
   open: boolean;
   handleClose: () => void;
   id: string;
+}
+
+interface EventData {
+  name: string;
+  eventId: string;
+  live: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -49,10 +57,27 @@ export const EventModal: React.FC<EventModalProps> = ({
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const [eventData, setEventData] = useState<EventData>({
+    name: "",
+    eventId: "",
+    live: false,
+  });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(id);
-  }, []);
+    if (id) {
+      getEventById(id).then((res) => {
+        const { data } = res;
+        setEventData({
+          ...eventData,
+          name: data.name,
+          eventId: data.id,
+          live: data.onGoing,
+        });
+        setLoading(false);
+      });
+    }
+  }, [id]);
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -66,7 +91,7 @@ export const EventModal: React.FC<EventModalProps> = ({
         </IconButton>
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
-        <EventForm name="TEST" />
+        {!loading && <EventForm name={eventData.name} />}
       </Grid>
     </div>
   );

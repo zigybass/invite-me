@@ -14,12 +14,14 @@ export const EventButton: React.FC<EventButtonProps> = ({
   live,
 }) => {
   const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
 
   return (
     <>
       <Button
         onClick={() => {
           setOpen(true);
+          setId(eventId);
         }}
       >
         {title}
@@ -30,7 +32,7 @@ export const EventButton: React.FC<EventButtonProps> = ({
         handleClose={() => {
           setOpen(false);
         }}
-        id={eventId}
+        id={id}
       />
     </>
   );
