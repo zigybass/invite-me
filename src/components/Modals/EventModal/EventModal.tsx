@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Modal, IconButton, Grid, Container } from "@material-ui/core";
+import { Modal, IconButton, Grid } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 import { EventForm } from "../../EventForm/EventForm";
 import { getEventById } from "../../../utils/API";
 import { Skeleton } from "@material-ui/lab";
-
-/*
-
-Create getEventById function and return JSON to EventModal. Build out some details of EventModal
-
-*/
 
 interface EventModalProps {
   open: boolean;
@@ -91,7 +85,13 @@ export const EventModal: React.FC<EventModalProps> = ({
         </IconButton>
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
-        {!loading && <EventForm name={eventData.name} />}
+        {!loading ? (
+          <EventForm name={eventData.name} />
+        ) : (
+          <Grid item md={3}>
+            <Skeleton animation="wave" variant="text" />
+          </Grid>
+        )}
       </Grid>
     </div>
   );
