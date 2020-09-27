@@ -1,16 +1,24 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@material-ui/core";
+import { deleteEvent } from "../../utils/API";
 
 interface EventFormProps {
-  name: string;
+  data: any;
 }
 
-export const EventForm: React.FC<EventFormProps> = ({ name }) => {
+export const EventForm: React.FC<EventFormProps> = ({ data }) => {
+  console.log(data.eventId);
+  const handleDelete = (): void => {
+    deleteEvent(data.eventId).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <Grid container justify="center">
         <Grid item>
-          <Typography variant="subtitle1">{name}</Typography>
+          <Typography variant="subtitle1">{data.name}</Typography>
         </Grid>
       </Grid>
       <Grid container>
@@ -39,6 +47,20 @@ export const EventForm: React.FC<EventFormProps> = ({ name }) => {
           </Typography>
         </Grid>
       </Grid>
+      <Grid container style={styles.content} />
+      <Grid container>
+        <Grid item md={4}>
+          <Button onClick={handleDelete} variant="contained">
+            Delete Event
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
+};
+
+const styles = {
+  content: {
+    height: "28vh",
+  },
 };
