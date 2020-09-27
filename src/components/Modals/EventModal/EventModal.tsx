@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       position: "absolute",
       width: "72%",
-      height: "72%",
       borderRadius: ".8rem",
       outline: "none",
       backgroundColor: theme.palette.background.paper,
@@ -86,7 +85,7 @@ export const EventModal: React.FC<EventModalProps> = ({
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
         {!loading ? (
-          <EventForm name={eventData.name} />
+          <EventForm data={eventData} />
         ) : (
           <Grid item md={3}>
             <Skeleton animation="wave" variant="text" />
