@@ -85,7 +85,7 @@ export const EventModal: React.FC<EventModalProps> = ({
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
         {!loading ? (
-          <EventForm data={eventData} />
+          <EventForm data={eventData} close={handleClose} />
         ) : (
           <Grid item md={3}>
             <Skeleton animation="wave" variant="text" />
