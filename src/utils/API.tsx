@@ -23,10 +23,7 @@ const _post = (url: string, data: newEvent): Promise<AxiosResponse<any>> => {
 };
 
 const _delete = (url: string): Promise<AxiosResponse<any>> => {
-  return axios({
-    method: "delete",
-    url: url,
-  });
+  return axios.delete(url);
 };
 
 export const getEvents = (): Promise<AxiosResponse<any>> => {
