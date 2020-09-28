@@ -44,9 +44,7 @@ export default function Nav() {
         const { data } = res;
         setEvents([...events, data]);
       })
-      .catch((err): void => {
-        console.log(err);
-      });
+      .catch((err): void => {});
     setOpen(false);
   };
 

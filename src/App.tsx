@@ -6,6 +6,7 @@ import Nav from "./components/NavBar/Nav";
 import { Home } from "./views/Home";
 import { Typography, Grid, Snackbar } from "@material-ui/core";
 import { EventsContext } from "./EventContext/EventsContext";
+import moment from "moment";
 
 type Snack = {
   open: boolean;
