@@ -1,29 +1,39 @@
-import React, { useState } from "react";
-import { Button, Grid, Typography, Snackbar } from "@material-ui/core";
+import React, { useState, useContext } from "react";
+import { Button, Grid, Typography } from "@material-ui/core";
 import { deleteEvent } from "../../utils/API";
 import { ConfirmModal } from "../Modals/ConfirmModal/ConfirmModal";
+import { EventsContext } from "../../EventContext/EventsContext";
 
 interface EventFormProps {
   data: any;
+  close: () => void;
 }
 
 type Modal = {
   open: boolean;
   loading: boolean;
-  snack: boolean;
 };
 
-export const EventForm: React.FC<EventFormProps> = ({ data }) => {
+export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
+  const { events, setEvents, openSnack } = useContext(EventsContext);
   const [modal, setModal] = useState<Modal>({
     open: false,
     loading: false,
-    snack: false,
   });
+
   const handleDelete = (): void => {
     setModal({ ...modal, loading: true });
     deleteEvent(data.eventId).then((res) => {
-      const { data } = res;
-      setModal({ ...modal, loading: false, open: false, snack: true });
+      const { id } = res.data;
+      const newEvents = events.filter((item: any) => {
+        if (item.id != id) {
+          return item;
+        }
+      });
+      setEvents(newEvents);
+      setModal({ ...modal, loading: false, open: false });
+      close();
+      openSnack("Event deleted succesfully!");
     });
   };
 
@@ -80,18 +90,6 @@ export const EventForm: React.FC<EventFormProps> = ({ data }) => {
         }}
         confirm={handleDelete}
         loading={modal.loading}
-      />
-      <Snackbar
-        open={modal.snack}
-        autoHideDuration={3000}
-        onClose={() => {
-          setModal({ ...modal, snack: false });
-        }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        message="Event deleted succesfully!"
       />
     </>
   );
