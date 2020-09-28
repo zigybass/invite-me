@@ -7,10 +7,9 @@ interface EventFormProps {
 }
 
 export const EventForm: React.FC<EventFormProps> = ({ data }) => {
-  console.log(data.eventId);
   const handleDelete = (): void => {
     deleteEvent(data.eventId).then((res) => {
-      console.log(res);
+      const { data } = res;
     });
   };
 
