@@ -12,12 +12,6 @@ interface EventModalProps {
   id: string;
 }
 
-interface EventData {
-  name: string;
-  eventId: string;
-  live: boolean;
-}
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
@@ -50,23 +44,14 @@ export const EventModal: React.FC<EventModalProps> = ({
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-  const [eventData, setEventData] = useState<EventData>({
-    name: "",
-    eventId: "",
-    live: false,
-  });
+  const [eventData, setEventData] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
       getEventById(id).then((res) => {
         const { data } = res;
-        setEventData({
-          ...eventData,
-          name: data.name,
-          eventId: data.id,
-          live: data.onGoing,
-        });
+        setEventData(data);
         setLoading(false);
       });
     }

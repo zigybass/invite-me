@@ -3,6 +3,7 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { deleteEvent } from "../../utils/API";
 import { ConfirmModal } from "../Modals/ConfirmModal/ConfirmModal";
 import { EventsContext } from "../../EventContext/EventsContext";
+import moment from "moment";
 
 interface EventFormProps {
   data: any;
@@ -21,18 +22,23 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
     loading: false,
   });
 
+  const start = moment.utc(data.startTime).format("LT");
+  const end = moment.utc(data.endTime).format("LT");
+  const date = moment.utc(data.endTime).format("MMMM Do");
+  const day = moment.utc(data.endTime).format("dddd");
+
   const handleDelete = (): void => {
     setModal({ ...modal, loading: true });
-    deleteEvent(data.eventId).then((res) => {
+    deleteEvent(data.id).then((res) => {
       const { id } = res.data;
       const newEvents = events.filter((item: any) => {
         if (item.id != id) {
           return item;
         }
       });
-      setEvents(newEvents);
       setModal({ ...modal, loading: false, open: false });
       close();
+      setEvents(newEvents);
       openSnack("Event deleted succesfully!");
     });
   };
@@ -46,17 +52,34 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">Location: test</Typography>
+          <Typography variant="body1">
+            Location: {data.location.name}
+          </Typography>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">Time: 6:00 PM</Typography>
+          <Typography variant="body1">Day: {`${day}, ${date}`} </Typography>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">People confirmed: 8</Typography>
+          <Typography variant="body1">Start Time: {start} </Typography>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item md={4}>
+          <Typography variant="body1">End Time: {end} </Typography>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item md={4}>
+          <Typography variant="body1">Confirmed: {data.attending} </Typography>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item md={4}>
+          <Typography variant="body1">Declined: {data.declined} </Typography>
         </Grid>
       </Grid>
       <Grid container>
@@ -64,10 +87,7 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
           <Typography variant="body1">Description:</Typography>
         </Grid>
         <Grid item md={6}>
-          <Typography variant="body2">
-            Two teams compete for points. When you catch the disk, stop moving.
-            It's like soccer but with a frisbee.
-          </Typography>
+          <Typography variant="body2">{data.description}</Typography>
         </Grid>
       </Grid>
       <Grid container style={styles.content} />
