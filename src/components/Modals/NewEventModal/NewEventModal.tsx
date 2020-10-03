@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import { Modal, IconButton, Grid, Button } from "@material-ui/core";
+import { Modal, TextField, IconButton, Grid, Button } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 
-interface ConfirmModal {
+interface PromptModal {
   open: boolean;
   handleClose: () => void;
-  confirm: () => void;
-  loading: boolean;
+  add: (event: string) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     paper: {
       position: "absolute",
-      width: 550,
+      width: "72%",
       outline: "none",
       borderRadius: ".8rem",
       backgroundColor: theme.palette.background.paper,
@@ -35,14 +34,19 @@ function getModalStyle() {
   };
 }
 
-export const ConfirmModal: React.FC<ConfirmModal> = ({
+export const PromptModal: React.FC<PromptModal> = ({
   open,
   handleClose,
-  confirm,
-  loading,
+  add,
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const [text, setText] = useState("");
+
+  const handleAdd = () => {
+    add(text);
+    setText("");
+  };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -50,6 +54,7 @@ export const ConfirmModal: React.FC<ConfirmModal> = ({
         <IconButton
           onClick={() => {
             handleClose();
+            setText("");
           }}
         >
           <ClearIcon />
@@ -57,20 +62,32 @@ export const ConfirmModal: React.FC<ConfirmModal> = ({
       </div>
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
         <h2 style={styles.header} id="simple-modal-title">
-          Confirm Delete?
+          Please enter an event name:
         </h2>
+        <TextField
+          inputProps={{ min: 0, style: { textAlign: "center" } }}
+          value={text}
+          fullWidth
+          onChange={(e) => {
+            setText(e.target.value);
+          }}
+        />
       </Grid>
       <Grid container style={styles.buttons} justify="center" spacing={10}>
         <Grid item>
-          <Button disabled={loading} variant="contained" onClick={confirm}>
-            Yes
+          <Button
+            disabled={Boolean(!text)}
+            variant="contained"
+            onClick={handleAdd}
+          >
+            Add
           </Button>
         </Grid>
         <Grid item>
           <Button
-            disabled={loading}
             onClick={() => {
               handleClose();
+              setText("");
             }}
           >
             Cancel

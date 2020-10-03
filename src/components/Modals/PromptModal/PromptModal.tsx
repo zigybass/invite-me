@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { Modal, TextField, IconButton, Grid, Button } from "@material-ui/core";
+import { Modal, IconButton, Grid, Button, Typography } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
+import PromptForm from "./PromptForm";
+import { Formik, Form } from "formik";
 
 interface PromptModal {
   open: boolean;
   handleClose: () => void;
   add: (event: string) => void;
+}
+
+interface ModalText {
+  name: string;
+  startDay: string;
+  startTime: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -41,59 +49,57 @@ export const PromptModal: React.FC<PromptModal> = ({
 }) => {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-  const [text, setText] = useState("");
-
-  const handleAdd = () => {
-    add(text);
-    setText("");
+  const initialValues: ModalText = {
+    name: "",
+    startDay: "",
+    startTime: "",
   };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <div style={{ float: "right" }}>
-        <IconButton
-          onClick={() => {
-            handleClose();
-            setText("");
-          }}
-        >
-          <ClearIcon />
-        </IconButton>
-      </div>
-      <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
-        <h2 style={styles.header} id="simple-modal-title">
-          Please enter an event name:
-        </h2>
-        <TextField
-          inputProps={{ min: 0, style: { textAlign: "center" } }}
-          value={text}
-          fullWidth
-          onChange={(e) => {
-            setText(e.target.value);
-          }}
-        />
-      </Grid>
-      <Grid container style={styles.buttons} justify="center" spacing={10}>
-        <Grid item>
-          <Button
-            disabled={Boolean(!text)}
-            variant="contained"
-            onClick={handleAdd}
-          >
-            Add
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button
-            onClick={() => {
-              handleClose();
-              setText("");
-            }}
-          >
-            Cancel
-          </Button>
-        </Grid>
-      </Grid>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(data) => {
+          console.log("data: ", data);
+        }}
+      >
+        {() => {
+          return (
+            <>
+              <div style={{ float: "right" }}>
+                <IconButton
+                  onClick={() => {
+                    handleClose();
+                  }}
+                >
+                  <ClearIcon />
+                </IconButton>
+              </div>
+              <Grid container justify="center">
+                <h2 id="simple-modal-title">New Event</h2>
+              </Grid>
+              <Form>
+                <PromptForm />
+                <Grid
+                  container
+                  style={styles.buttons}
+                  justify="center"
+                  spacing={10}
+                >
+                  <Grid item>
+                    <Button variant="contained" type="submit">
+                      Add
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button onClick={handleClose}>Cancel</Button>
+                  </Grid>
+                </Grid>
+              </Form>
+            </>
+          );
+        }}
+      </Formik>
     </div>
   );
 
@@ -114,8 +120,5 @@ export const PromptModal: React.FC<PromptModal> = ({
 const styles = {
   buttons: {
     paddingTop: "1.75rem",
-  },
-  header: {
-    paddingBottom: "2.25rem",
   },
 };
