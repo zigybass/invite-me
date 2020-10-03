@@ -32,7 +32,7 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
     deleteEvent(data.id).then((res) => {
       const { id } = res.data;
       const newEvents = events.filter((item: any) => {
-        if (item.id != id) {
+        if (item.id !== id) {
           return item;
         }
       });
