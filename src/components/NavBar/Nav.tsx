@@ -5,6 +5,11 @@ import { PromptModal } from "../Modals/PromptModal/PromptModal";
 import { EventsContext } from "../../EventContext/EventsContext";
 import { addEventToAPI } from "../../utils/API";
 
+interface NewEvent {
+  name: string;
+  startTime: string;
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -34,14 +39,16 @@ export default function Nav() {
     setOpen(false);
   };
 
-  const handleAdd = (event: string): void => {
+  const handleAdd = (event: NewEvent): void => {
+    const { name, startTime } = event;
     const eventData = {
-      name: event,
-      onGoing: false,
+      name,
+      startTime,
     };
     addEventToAPI(eventData)
       .then((res): void => {
         const { data } = res;
+        console.log(data);
         setEvents([...events, data]);
       })
       .catch((err): void => {});

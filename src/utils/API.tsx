@@ -2,16 +2,16 @@ import React from "react";
 import axios, { AxiosResponse } from "axios";
 import { Requests } from "./restEnums";
 
-type newEvent = {
+type NewEvent = {
   name: string;
-  onGoing: boolean;
+  startTime: string;
 };
 
 const _get = (url: string): Promise<AxiosResponse<any>> => {
   return axios.get(url);
 };
 
-const _post = (url: string, data: newEvent): Promise<AxiosResponse<any>> => {
+const _post = (url: string, data: NewEvent): Promise<AxiosResponse<any>> => {
   return axios({
     method: Requests.POST,
     url: url,
@@ -36,7 +36,7 @@ export const getEventById = (id: string): Promise<AxiosResponse<any>> => {
   return _get(url);
 };
 
-export const addEventToAPI = (data: newEvent): Promise<AxiosResponse<any>> => {
+export const addEventToAPI = (data: NewEvent): Promise<AxiosResponse<any>> => {
   const url: string = "http://localhost:8080/events";
   return _post(url, data);
 };
