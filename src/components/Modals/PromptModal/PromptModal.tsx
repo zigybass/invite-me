@@ -9,12 +9,17 @@ import moment from "moment";
 interface PromptModal {
   open: boolean;
   handleClose: () => void;
-  add: (event: ModalText) => void;
+  add: (event: NewEvent) => void;
 }
 
 interface ModalText {
   name: string;
   startDay: string;
+  startTime: string;
+}
+
+interface NewEvent {
+  name: string;
   startTime: string;
 }
 
@@ -61,8 +66,13 @@ export const PromptModal: React.FC<PromptModal> = ({
       <Formik
         initialValues={initialValues}
         onSubmit={(data) => {
-          console.log(data);
-          // add(data);
+          const { name, startDay, startTime } = data;
+          const dateString: string = `${startDay}T${startTime}`;
+          const event: NewEvent = {
+            name,
+            startTime: dateString,
+          };
+          add(event);
         }}
       >
         {() => {

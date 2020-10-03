@@ -5,7 +5,7 @@ import { PromptModal } from "../Modals/PromptModal/PromptModal";
 import { EventsContext } from "../../EventContext/EventsContext";
 import { addEventToAPI } from "../../utils/API";
 
-interface ModalText {
+interface NewEvent {
   name: string;
   startTime: string;
 }
@@ -39,7 +39,7 @@ export default function Nav() {
     setOpen(false);
   };
 
-  const handleAdd = (event: ModalText): void => {
+  const handleAdd = (event: NewEvent): void => {
     const { name, startTime } = event;
     const eventData = {
       name,
