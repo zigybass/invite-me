@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Modal, IconButton, Grid, Button, Typography } from "@material-ui/core";
+import { Modal, IconButton, Grid, Button } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ClearIcon from "@material-ui/icons/Clear";
 import PromptForm from "./PromptForm";
 import { Formik, Form } from "formik";
+import moment from "moment";
 
 interface PromptModal {
   open: boolean;
   handleClose: () => void;
-  add: (event: string) => void;
+  add: (event: ModalText) => void;
 }
 
 interface ModalText {
@@ -60,7 +61,8 @@ export const PromptModal: React.FC<PromptModal> = ({
       <Formik
         initialValues={initialValues}
         onSubmit={(data) => {
-          console.log("data: ", data);
+          console.log(data);
+          // add(data);
         }}
       >
         {() => {

@@ -17,9 +17,9 @@ const PromptForm: React.FC = () => {
       <Grid container justify="center" style={{ padding: ".3rem 1.8rem" }}>
         <Field
           as={TextField}
+          type="date"
           inputProps={{ min: 0 }}
           fullWidth
-          label="Day of event"
           name="startDay"
         />
       </Grid>
@@ -28,8 +28,8 @@ const PromptForm: React.FC = () => {
           as={TextField}
           inputProps={{ min: 0 }}
           fullWidth
+          type="time"
           name="startTime"
-          label="Start time"
         />
       </Grid>
     </>
