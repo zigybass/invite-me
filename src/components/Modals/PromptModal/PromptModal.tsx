@@ -6,6 +6,9 @@ import PromptForm from "./PromptForm";
 import { Formik, Form } from "formik";
 import moment from "moment";
 
+// TO DO
+// Fix date parsing error, perhaps on backend? Cannot currently add new events
+
 interface PromptModal {
   open: boolean;
   handleClose: () => void;
@@ -67,7 +70,7 @@ export const PromptModal: React.FC<PromptModal> = ({
         initialValues={initialValues}
         onSubmit={(data) => {
           const { name, startDay, startTime } = data;
-          const dateString: string = `${startDay}T${startTime}`;
+          const dateString: string = `${startDay}T${startTime}:00Z`;
           const event: NewEvent = {
             name,
             startTime: dateString,
