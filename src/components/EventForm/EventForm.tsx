@@ -22,10 +22,12 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
     loading: false,
   });
 
-  const start = moment.utc(data.startTime).format("LT");
-  const end = moment.utc(data.endTime).format("LT");
-  const date = moment.utc(data.endTime).format("MMMM Do");
-  const day = moment.utc(data.endTime).format("dddd");
+  const startTime = moment.utc(data.startTime).format("LT");
+  const startDay = moment.utc(data.startTime).format("dddd");
+  const startDate = moment.utc(data.startTime).format("MMMM Do");
+  const endTime = moment.utc(data.endTime).format("LT");
+  const endDay = moment.utc(data.endTime).format("MMMM Do");
+  const endDate = moment.utc(data.endTime).format("MMMM Do");
 
   const handleDelete = (): void => {
     setModal({ ...modal, loading: true });
@@ -59,17 +61,19 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">Day: {`${day}, ${date}`} </Typography>
+          <Typography variant="body1">
+            Day: {`${startDay}, ${startDate}`}
+          </Typography>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">Start Time: {start} </Typography>
+          <Typography variant="body1">Start Time: {startTime} </Typography>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">End Time: {end} </Typography>
+          <Typography variant="body1">End Time: {endTime} </Typography>
         </Grid>
       </Grid>
       <Grid container>
