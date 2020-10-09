@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
 import { deleteEvent } from "../../utils/API";
 import { ConfirmModal } from "../Modals/ConfirmModal/ConfirmModal";
@@ -15,19 +15,45 @@ type Modal = {
   loading: boolean;
 };
 
+type Times = {
+  startTime: string;
+  startDay: string;
+  startDate: string;
+  endTime: string;
+  endDay: string;
+  endDate: string;
+};
+
 export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
   const { events, setEvents, openSnack } = useContext(EventsContext);
+  const [times, setTimes] = useState<Times>({
+    startTime: "--",
+    startDay: "--",
+    startDate: "--",
+    endTime: "--",
+    endDay: "--",
+    endDate: "--",
+  });
   const [modal, setModal] = useState<Modal>({
     open: false,
     loading: false,
   });
 
-  const startTime = moment.utc(data.startTime).format("LT");
-  const startDay = moment.utc(data.startTime).format("dddd");
-  const startDate = moment.utc(data.startTime).format("MMMM Do");
-  const endTime = moment.utc(data.endTime).format("LT");
-  const endDay = moment.utc(data.endTime).format("MMMM Do");
-  const endDate = moment.utc(data.endTime).format("MMMM Do");
+  useEffect(() => {
+    if (data.startTime) {
+      const startTime = moment.utc(data.startTime).format("LT");
+      const startDay = moment.utc(data.startTime).format("dddd");
+      const startDate = moment.utc(data.startTime).format("MMMM Do");
+      setTimes({ ...times, startTime, startDate, startDay });
+    }
+
+    if (data.endTime) {
+      const endTime = moment.utc(data.endTime).format("LT");
+      const endDay = moment.utc(data.endTime).format("MMMM Do");
+      const endDate = moment.utc(data.endTime).format("MMMM Do");
+      setTimes({ ...times, endDate, endDay, endTime });
+    }
+  }, []);
 
   const handleDelete = (): void => {
     setModal({ ...modal, loading: true });
@@ -62,18 +88,18 @@ export const EventForm: React.FC<EventFormProps> = ({ data, close }) => {
       <Grid container>
         <Grid item md={4}>
           <Typography variant="body1">
-            Day: {`${startDay}, ${startDate}`}
+            Day: {`${times.startDay}, ${times.startDate}`}
           </Typography>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">Start Time: {startTime} </Typography>
+          <Typography variant="body1">Start Time: {times.startTime}</Typography>
         </Grid>
       </Grid>
       <Grid container>
         <Grid item md={4}>
-          <Typography variant="body1">End Time: {endTime} </Typography>
+          <Typography variant="body1">End Time: {times.endTime} </Typography>
         </Grid>
       </Grid>
       <Grid container>
